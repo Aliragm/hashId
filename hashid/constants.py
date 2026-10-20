@@ -41,15 +41,11 @@ HASH_PREFIXES: dict[str, str] = {
 HASH_PREFIX_REGEX = re.compile(r"^(\$?[a-zA-Z0-9_.-]+\$)")
 
 PATTERNS = {
-    # 1. MySQL 5
     "MySQL5": re.compile(r"^\*[0-9A-F]{40}$", re.IGNORECASE),
-    # 2. DES crypt
     "DES crypt": re.compile(r"^[a-zA-Z0-9./]{13}$"),
-    # 3. NetNTLMv2
     "NetNTLMv2": re.compile(
         r"^[^:]+::[^:]*:[0-9a-fA-F]{32}:[0-9a-fA-F]{32}:[0-9a-fA-F]+$"
     ),
-    # 4. NetNTLMv1
     "NetNTLMv1": re.compile(
         r"^[^:]+::[^:]*:[0-9a-fA-F]{48}:[0-9a-fA-F]{48}:[0-9a-fA-F]{16}$"
     ),
@@ -58,14 +54,12 @@ PATTERNS = {
 HEX_REGEX = re.compile(r"^[0-9a-fA-F]+$")
 
 HEX_LENGTH_RULES: dict[int, list[str]] = {
-    # 16 hex chars (64 bits)
     16: [
         "CRC64",
         "MySQL323",
         "Half-MD5",
         "SipHash-64",
     ],
-    # 32 hex chars (128 bits)
     32: [
         "MD5",
         "NTLM",
@@ -76,7 +70,6 @@ HEX_LENGTH_RULES: dict[int, list[str]] = {
         "Skein-128",
         "MurmurHash3-128",
     ],
-    # 40 hex chars (160 bits)
     40: [
         "SHA-1",
         "RIPEMD-160",
@@ -84,18 +77,15 @@ HEX_LENGTH_RULES: dict[int, list[str]] = {
         "Tiger-160",
         "SHA-0",
     ],
-    # 48 hex chars (192 bits)
     48: [
         "Tiger-192",
         "TTH (TigerTree Hash)",
     ],
-    # 56 hex chars (224 bits)
     56: [
         "SHA-224",
         "SHA3-224",
         "Keccak-224",
     ],
-    # 64 hex chars (256 bits)
     64: [
         "SHA-256",
         "SHA3-256",
@@ -108,18 +98,15 @@ HEX_LENGTH_RULES: dict[int, list[str]] = {
         "Skein-256",
         "SM3",
     ],
-    # 80 hex chars (320 bits)
     80: [
         "RIPEMD-320",
     ],
-    # 96 hex chars (384 bits)
     96: [
         "SHA-384",
         "SHA3-384",
         "Keccak-384",
         "Skein-384",
     ],
-    # 128 hex chars (512 bits)
     128: [
         "SHA-512",
         "SHA3-512",
@@ -129,7 +116,6 @@ HEX_LENGTH_RULES: dict[int, list[str]] = {
         "GOST R 34.11-2012 (Streebog-512)",
         "Skein-512",
     ],
-    # 256 hex chars (1024 bits)
     256: [
         "Skein-1024",
     ],
@@ -139,6 +125,4 @@ GENERIC_PHC_REGEX = re.compile(r"^\$([a-zA-Z0-9_\-]+)\$(.*)$")
 
 JWT_REGEX = re.compile(r"^eyJ[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+$")
 
-BASE64_HINT_REGEX = re.compile(
-    r"^(?=.*[+/=])[A-Za-z0-9+/]+={0,2}$"
-)
+BASE64_HINT_REGEX = re.compile(r"^(?=.*[+/=])[A-Za-z0-9+/]+={0,2}$")

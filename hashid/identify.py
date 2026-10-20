@@ -1,15 +1,17 @@
-from hashes_constants import HASH_PREFIXES
-from hashes_constants import HASH_PREFIX_REGEX
-from hashes_constants import PATTERNS
-from hashes_constants import HEX_REGEX
-from hashes_constants import HEX_LENGTH_RULES
-from hashes_constants import GENERIC_PHC_REGEX
-from hashes_constants import JWT_REGEX
-from hashes_constants import BASE64_HINT_REGEX
+from hashid.constants import (
+    BASE64_HINT_REGEX,
+    GENERIC_PHC_REGEX,
+    HASH_PREFIXES,
+    HASH_PREFIX_REGEX,
+    HEX_LENGTH_RULES,
+    HEX_REGEX,
+    JWT_REGEX,
+    PATTERNS,
+)
 
 
 def identify(hash_str: str) -> list[str] | str | None:
-    clean = hash_str.strip()
+    clean = hash_str.strip().strip("'\"")
     if not clean:
         return None
 
@@ -36,11 +38,10 @@ def prefix_tables(clean_hash: str) -> list[str] | None:
 
     prefix = match.group(1)
     algo = HASH_PREFIXES.get(prefix)
-    
+
     if algo:
         return [algo]
-    else:
-        return None
+    return None
 
 
 def special_shapes(clean_hash: str) -> list[str] | None:
